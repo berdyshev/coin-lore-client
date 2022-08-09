@@ -1,7 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {CryptoListScreen} from './CryptoList/CryptoListScreen';
+import {CryptoListScreen} from './crypto-list/CryptoListScreen';
 import {LoginScreen} from './login/LoginScreen';
 
 const Stack = createNativeStackNavigator();
