@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 
 export function Router() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="CryptoList">
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="CryptoList" component={CryptoListScreen} />
     </Stack.Navigator>
