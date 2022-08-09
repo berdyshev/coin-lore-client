@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {useTickerFiltering, useTickers} from '../../workflow/tickers';
 import {FilterForm} from './components/FilterForm';
+import {TickerItem} from './components/TickerItem';
 
 export function CryptoListScreen() {
   const {data, isLoading} = useTickers();
@@ -19,11 +20,7 @@ export function CryptoListScreen() {
     <FlatList
       data={tickers}
       ListHeaderComponent={<FilterForm onFilter={onPct24Change} />}
-      renderItem={({item}) => (
-        <Text>
-          {item.name} ({item.percent_change_24h}%)
-        </Text>
-      )}
+      renderItem={({item}) => <TickerItem ticker={item} />}
       keyExtractor={item => item.id}
     />
   );
