@@ -1,5 +1,6 @@
 import React from 'react';
 import {Pressable, Text, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   line: {
@@ -23,8 +24,12 @@ const styles = StyleSheet.create({
 });
 
 export function TickerItem({ticker}) {
+  const navigation = useNavigation();
+
   return (
-    <Pressable onPress={() => console.log(ticker)} style={styles.line}>
+    <Pressable
+      onPress={() => navigation.navigate('TickerChart', {tickerId: ticker.id})}
+      style={styles.line}>
       <Text style={styles.name}>{ticker.name}</Text>
       <Text style={styles.pct}>{ticker.percent_change_24h}%</Text>
       <Text style={styles.icon}>{'>'}</Text>

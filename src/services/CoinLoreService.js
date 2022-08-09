@@ -9,5 +9,7 @@ export async function getTickers({start = 0, limit = 50}) {
 export async function getTicker(tickerId) {
   return await fetch(`${baseUrl}/ticker?id=${tickerId}`, {
     headers: {'Content-Type': 'application/json'},
-  }).then(response => response.json());
+  })
+    .then(response => response.json())
+    .then(data => data?.[0]);
 }
