@@ -1,6 +1,8 @@
 import React from 'react';
 import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
-import {CryptoListScreen} from './src/screens/CryptoListScreen';
+import {NavigationContainer} from '@react-navigation/native';
+
+import {Router} from './src/screens';
 
 const queryClient = new QueryClient({
   refetchOnReconnect: true,
@@ -11,7 +13,9 @@ const queryClient = new QueryClient({
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <CryptoListScreen />
+      <NavigationContainer>
+        <Router />
+      </NavigationContainer>
     </QueryClientProvider>
   );
 }
