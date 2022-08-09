@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, FlatList} from 'react-native';
-import {useTickers} from '../workflow/tickers/useTickers';
+import {useTickers} from '../../workflow/tickers/useTickers';
 
 export function CryptoListScreen() {
   const {data, isLoading} = useTickers();
