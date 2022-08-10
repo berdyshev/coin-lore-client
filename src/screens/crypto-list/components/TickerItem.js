@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   line: {
     padding: 10,
     borderBottomWidth: 1,
+    borderColor: '#888',
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -20,6 +21,7 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 24,
     marginHorizontal: 2,
+    color: '#888',
   },
 });
 

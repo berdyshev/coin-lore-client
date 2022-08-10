@@ -15,13 +15,16 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     borderWidth: 1,
-    borderRadius: 2,
+    borderColor: '#888',
+    borderRadius: 5,
     marginRight: 10,
   },
   button: {
     borderWidth: 1,
     borderRadius: 10,
-    padding: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderColor: '#888',
   },
 });
 
