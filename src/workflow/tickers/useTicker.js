@@ -5,14 +5,16 @@ import {getTicker} from '../../services/CoinLoreService';
 
 async function fetchTickerSlice(tickerId) {
   const data = await getTicker(tickerId);
-  return {...data, timestamp: new Date()};
+  const date = new Date();
+  const time = `${date.getHours()}:${date.getMinutes()}`;
+  return {...data, time};
 }
 
 function transformPages(data) {
   const {id, name, symbol} = data.pages[0];
-  const prices = data.pages.map(({price_usd, timestamp}) => ({
-    price_usd,
-    timestamp,
+  const prices = data.pages.map(({price_usd, time}) => ({
+    price_usd: parseFloat(price_usd) || 0,
+    time,
   }));
   return {id, name, symbol, prices};
 }
@@ -27,11 +29,12 @@ export function useTicker(tickerId, {maxSlices = 5, interval = 30}) {
         const placeholder = queryClient
           .getQueryData(['tickers'], {exact: false})
           ?.data.find(d => d.id === tickerId);
-        return {pages: [{...placeholder, timestamp: new Date()}]};
+        return {pages: [{...placeholder, time: '00:00'}]};
       },
       getNextPageParam: (_, pages) =>
         pages.length < maxSlices ? pages.length : undefined,
       select: transformPages,
+      cacheTime: 5 * 60 * 1000,
     },
   );
 

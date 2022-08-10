@@ -28,7 +28,7 @@ export function Chart({data}) {
       <YAxis
         data={data}
         yAccessor={({item}) => item.price_usd}
-        formatLabel={value => Number(value).toFixed(2)}
+        formatLabel={value => value.toFixed(2)}
         style={styles.yAxis}
         contentInset={verticalContentInset}
         svg={axesSvg}
@@ -39,7 +39,6 @@ export function Chart({data}) {
           data={data}
           xAccessor={({index}) => index}
           yAccessor={({item}) => item.price_usd}
-          numberOfTicks={data.length + 2}
           yMin={yMin}
           yMax={yMax}
           contentInset={verticalContentInset}
@@ -49,12 +48,8 @@ export function Chart({data}) {
         <XAxis
           style={styles.xAxis}
           data={data}
-          xAccessor={({item}) => item.timestamp}
-          formatLabel={value =>
-            value instanceof Date
-              ? `${value.getHours()}:${value.getMinutes()}`
-              : ''
-          }
+          xAccessor={({index}) => index}
+          formatLabel={value => data[value].time}
           contentInset={{left: 20, right: 20}}
           svg={axesSvg}
         />

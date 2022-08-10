@@ -1,3 +1,4 @@
+import {useNetInfo} from '@react-native-community/netinfo';
 import React from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';
 import {useTickerFiltering, useTickers} from '../../workflow/tickers';
@@ -15,6 +16,7 @@ const styles = StyleSheet.create({
 export function CryptoListScreen() {
   const {data, isLoading} = useTickers();
   const {data: tickers, onPct24Change} = useTickerFiltering(data?.data);
+  const netInfo = useNetInfo();
 
   if (isLoading) {
     return (
@@ -33,7 +35,9 @@ export function CryptoListScreen() {
           <FilterForm onFilter={onPct24Change} />
         </View>
       }
-      renderItem={({item}) => <TickerItem ticker={item} />}
+      renderItem={({item}) => (
+        <TickerItem ticker={item} disabled={!netInfo.isConnected} />
+      )}
       keyExtractor={item => item.id}
     />
   );

@@ -25,11 +25,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export function TickerItem({ticker}) {
+export function TickerItem({ticker, disabled}) {
   const navigation = useNavigation();
 
   return (
     <Pressable
+      disabled={disabled}
       onPress={() => navigation.navigate('TickerChart', {tickerId: ticker.id})}
       style={styles.line}>
       <Text style={styles.name}>{ticker.name}</Text>
