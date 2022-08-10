@@ -1,12 +1,30 @@
 import React, {useEffect} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {useTicker} from '../../workflow/tickers/useTicker';
+import {Chart} from './components/Chart';
+import {Timer} from './components/Timer';
+
+const MAX_TICKS = 5;
+const TICK_SEC = 30;
+
+const styles = StyleSheet.create({
+  timerRow: {
+    padding: 10,
+    maringVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+});
 
 export function TickerChartScreen({route}) {
   const {tickerId} = route.params;
-  const {data: ticker, isLoading} = useTicker(tickerId);
+  const {
+    data: ticker,
+    isFetching,
+    hasNextPage,
+  } = useTicker(tickerId, {maxSlices: MAX_TICKS, interval: TICK_SEC});
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -17,17 +35,16 @@ export function TickerChartScreen({route}) {
     }
   }, [ticker, navigation]);
 
-  if (isLoading) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-
   return (
     <View>
-      <Text>Price: {ticker.price_usd} USD</Text>
+      <View style={styles.timerRow}>
+        <Text>Time to next update: </Text>
+        <Timer
+          key={ticker?.prices.length}
+          time={isFetching || hasNextPage ? TICK_SEC : 0}
+        />
+      </View>
+      {ticker?.prices.length ? <Chart data={ticker.prices} /> : null}
     </View>
   );
 }
